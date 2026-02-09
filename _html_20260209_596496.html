@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Cultural Santiago - Galería de Arte Contemporáneo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES Y ESTILOS GLOBALES ===== */
+        :root {
+            --color-blanco: #FFFFFF;
+            --color-negro: #000000;
+            --color-beige: #F5F1E8;
+            --color-gris: #E8E2D9;
+            --color-tierra: #A0522D;
+            --color-tierra-hover: #8B4513;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Open Sans', sans-serif;
+            color: var(--color-negro);
+            line-height: 1.6;
+            background-color: var(--color-blanco);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--color-tierra);
+            color: white;
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--color-tierra-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--color-negro);
+            color: var(--color-negro);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-negro);
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--color-tierra);
+            margin: 15px auto;
+        }
+
+        /* ===== HEADER Y NAVEGACIÓN ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--sombra);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--color-negro);
+        }
+
+        .logo span {
+            color: var(--color-tierra);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-negro);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-tierra);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            color: var(--color-negro);
+            margin-left: 20px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-icons a:hover {
+            color: var(--color-tierra);
+        }
+
+        .cart-btn {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--color-tierra);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* ===== ARTISTAS DESTACADOS ===== */
+        .artists {
+            background-color: var(--color-beige);
+        }
+
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .artist-card {
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .artist-img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .artist-info {
+            padding: 20px;
+        }
+
+        .artist-info h3 {
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+        }
+
+        .artist-specialty {
+            color: var(--color-tierra);
+            font-style: italic;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* ===== COLECCIÓN ===== */
+        .collection-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: transparent;
+            border: 1px solid var(--color-gris);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--color-negro);
+            color: white;
+            border-color: var(--color-negro);
+        }
+
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .art-card {
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-img-container {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .art-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .art-card:hover .art-img {
+            transform: scale(1.05);
+        }
+
+        .art-info {
+            padding: 20px;
+        }
+
+        .art-title {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .art-artist {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .art-price {
+            font-weight: 700;
+            color: var(--color-tierra);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .art-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* ===== TIENDA ONLINE ===== */
+        .shop {
+            background-color: var(--color-beige);
+        }
+
+        .shop-highlight {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .shop-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .shop-features {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .shop-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .shop-features i {
+            color: var(--color-tierra);
+            margin-right: 10px;
+        }
+
+        /* ===== REDES SOCIALES ===== */
+        .social-feed {
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-negro);
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            color: var(--color-tierra);
+        }
+
+        .social-icon i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--color-negro);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3:after, .footer-contact h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--color-tierra);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-tierra);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .shop-highlight {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--sombra);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Centro<span>Cultural</span>Santiago</a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#artistas">Artistas</a></li>
+                <li><a href="#coleccion">Colección</a></li>
+                <li><a href="#tienda">Tienda</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            
+            <div class="nav-icons">
+                <a href="#" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="inicio">
+        <div class="container hero-content">
+            <h1>Arte que inspira, cultura que transforma</h1>
+            <p>Descubre obras exclusivas de artistas contemporáneos chilenos y adquiere piezas únicas para tu colección personal o corporativa.</p>
+            <a href="#coleccion" class="btn">Explorar Colección</a>
+            <a href="#artistas" class="btn btn-outline">Conocer Artistas</a>
+        </div>
+    </section>
+
+    <!-- ARTISTAS DESTACADOS -->
+    <section class="artists" id="artistas">
+        <div class="container">
+            <h2 class="section-title">Artistas Destacados</h2>
+            <div class="artist-grid">
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Artista 1" class="artist-img">
+                    <div class="artist-info">
+                        <h3>María González</h3>
+                        <span class="artist-specialty">Pintura Abstracta</span>
+                        <p>Explora la relación entre color y emoción en sus obras vibrantes. Exposiciones internacionales en París y Nueva York.</p>
+                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">Ver Obras</a>
+                    </div>
+                </div>
+                
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80" alt="Artista 2" class="artist-img">
+                    <div class="artist-info">
+                        <h3>Carlos Rodríguez</h3>
+                        <span class="artist-specialty">Escultura Moderna</span>
+                        <p>Transforma metales y materiales reciclados en formas orgánicas que dialogan con el espacio.</p>
+                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">Ver Obras</a>
+                    </div>
+                </div>
+                
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Artista 3" class="artist-img">
+                    <div class="artist-info">
+                        <h3>Ana Fernández</h3>
+                        <span class="artist-specialty">Fotografía Artística</span>
+                        <p>Captura la esencia del paisaje chileno con una mirada contemporánea y poética.</p>
+                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">Ver Obras</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLECCIÓN -->
+    <section class="collection" id="coleccion">
+        <div class="container">
+            <h2 class="section-title">Colección Exclusiva</h2>
+            
+            <div class="collection-filter">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="pintura">Pintura</button>
+                <button class="filter-btn" data-filter="escultura">Escultura</button>
+                <button class="filter-btn" data-filter="fotografia">Fotografía</button>
+                <button class="filter-btn" data-filter="disponible">Disponible</button>
+            </div>
+            
+            <div class="art-grid">
+                <div class="art-card" data-category="pintura disponible">
+                    <div class="art-img-container">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Obra 1" class="art-img">
+                    </div>
+                    <div class="art-info">
+                        <h4 class="art-title">Horizontes Entrelazados</h4>
+                        <p class="art-artist">María González</p>
+                        <p class="art-price">$1.850.000 CLP</p>
+                        <div class="art-meta">
+                            <span>Óleo sobre lienzo</span>
+                            <span>100x70 cm</span>
+                        </div>
+                        <a href="#" class="btn" style="width: 100%; margin-top: 15px;">Comprar</a>
+                    </div>
+                </div>
+                
+                <div class="art-card" data-category="escultura disponible">
+                    <div class="art-img-container">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Obra 2" class="art-img">
+                    </div>
+                    <div class="art-info">
+                        <h4 class="art-title">Equilibrio en Movimiento</h4>
+                        <p class="art-artist">Carlos Rodríguez</p>
+                        <p class="art-price">$3.200.000 CLP</p>
+                        <div class="art-meta">
+                            <span>Acero y bronce</span>
+                            <span>45x30x20 cm</span>
+                        </div>
+                        <a href="#" class="btn" style="width: 100%; margin-top: 15px;">Comprar</a>
+                    </div>
+                </div>
+                
+                <div class="art-card" data-category="fotografia disponible">
+                    <div class="art-img-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Obra 3" class="art-img">
+                    </div>
+                    <div class="art-info">
+                        <h4 class="art-title">Atacama Sublunar</h4>
+                        <p class="art-artist">Ana Fernández</p>
+                        <p class="art-price">$750.000 CLP</p>
+                        <div class="art-meta">
+                            <span>Fotografía fine-art</span>
+                            <span>Edición 5/20</span>
+                        </div>
+                        <a href="#" class="btn" style="width: 100%; margin-top: 15px;">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIENDA ONLINE -->
+    <section class="shop" id="tienda">
+        <div class="container">
+            <h2 class="section-title">Tienda Online</h2>
+            <div class="shop-highlight">
+                <div class="shop-text">
+                    <h2>Compra Arte con Confianza</h2>
+                    <p>Nuestra plataforma de compra segura te permite adquirir obras de arte desde cualquier lugar del mundo. Ofrecemos certificado de autenticidad, embalaje especializado y envío seguro.</p>
+                    
+                    <ul class="shop-features">
+                        <li><i class="fas fa-check-circle"></i> Pago 100% seguro con múltiples opciones</li>
+                        <li><i class="fas fa-check-circle"></i> Envío nacional e internacional con seguimiento</li>
+                        <li><i class="fas fa-check-circle"></i> Certificado de autenticidad incluido</li>
+                        <li><i class="fas fa-check-circle"></i> Asesoría personalizada para coleccionistas</li>
+                    </ul>
+                    
+                    <a href="#coleccion" class="btn">Comprar Ahora</a>
+                </div>
+                
+                <div class="shop-visual">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Proceso de compra" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDES SOCIALES -->
+    <section class="social-feed">
+        <div class="container">
+            <h2 class="section-title">Síguenos en Redes</h2>
+            <p>Descubre detrás de cámaras, procesos creativos y nuevas adquisiciones en nuestras redes sociales.</p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" class="social-icon" target="_blank">
+                    <i class="fab fa-pinterest"></i>
+                    <span>Pinterest</span>
+                </a>
+                <a href="#" class="social-icon" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">CentroCulturalSantiago</div>
+                    <p>Promoviendo el arte contemporáneo chileno desde 2010. Conectamos artistas emergentes y establecidos con coleccionistas y amantes del arte.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#artistas">Artistas</a></li>
+                        <li><a href="#coleccion">Colección</a></li>
+                        <li><a href="#tienda">Tienda Online</a></li>
+                        <li><a href="#">Próximas Exposiciones</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Libertador 1234, Santiago</p>
+                    <p><i class="fas fa-phone"></i> +56 2 2345 6789</p>
+                    <p><i class="fas fa-envelope"></i> info@centroculturalsantiago.cl</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 10:00 - 19:00</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Centro Cultural Santiago. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // MENÚ MÓVIL
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // FILTRADO DE OBRAS
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const artCards = document.querySelectorAll('.art-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover clase active de todos los botones
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Añadir clase active al botón clickeado
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                artCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // SIMULACIÓN DE CARRITO
+        const cartButtons = document.querySelectorAll('.art-card .btn');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 0;
+        
+        cartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                count++;
+                cartCount.textContent = count;
+                
+                // Animación de confirmación
+                button.textContent = '¡Añadido!';
+                button.style.backgroundColor = '#28a745';
+                
+                setTimeout(() => {
+                    button.textContent = 'Comprar';
+                    button.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+        
+        // SCROLL SUAVE
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Cerrar menú móvil si está abierto
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
