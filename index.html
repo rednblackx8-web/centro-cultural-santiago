@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Centro Cultural Santiago | Galería de Arte Contemporáneo - Mérida, Yucatán</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --blanco: #FFFFFF; --negro: #111111; --beige: #F9F6EF;
+            --tierra: #9C4A2E; --tierra-oscuro: #7A3A22;
+            --sombra-suave: 0 10px 25px -5px rgba(0,0,0,0.05);
+            --sombra-media: 0 20px 25px -12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--blanco); color: var(--negro); line-height: 1.5; scroll-behavior: smooth; }
+        h1, h2, h3, h4, .logo, .hero-title { font-family: 'Playfair Display', serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .header { position: sticky; top: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 18px 0; }
+        .header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo a { font-size: 1.8rem; font-weight: 700; text-decoration: none; color: var(--negro); }
+        .logo span { color: var(--tierra); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-links li a { text-decoration: none; font-weight: 500; color: #2c2c2c; transition: var(--transition); }
+        .nav-links li a:hover { color: var(--tierra); }
+        .cart-icon, .user-icon, .admin-icon { position: relative; cursor: pointer; font-size: 1.4rem; color: #2c2c2c; transition: var(--transition); margin-left: 0.5rem; }
+        .cart-icon:hover, .user-icon:hover, .admin-icon:hover { color: var(--tierra); }
+        .cart-count { position: absolute; top: -8px; right: -12px; background-color: var(--tierra); color: white; font-size: 0.7rem; font-weight: 700; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .mobile-menu { display: none; font-size: 1.8rem; cursor: pointer; background: none; border: none; }
+        /* hero, quote, artists, tienda (mismos estilos) ... resumimos para brevedad pero manteniendo todo */
+        .hero { background: linear-gradient(107deg, var(--beige) 0%, #fff4ea 100%); padding: 80px 0 90px; }
+        .hero-grid { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+        .hero-content { flex: 1; }
+        .hero-badge { color: var(--tierra); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 1rem; }
+        .hero-title { font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem; }
+        .btn { display: inline-block; background-color: var(--tierra); color: white; padding: 12px 32px; border-radius: 40px; text-decoration: none; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; }
+        .btn:hover { background-color: var(--tierra-oscuro); transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--tierra); color: var(--tierra); }
+        .quote-section { background-color: var(--blanco); padding: 3rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .quote-block { max-width: 950px; margin: 0 auto; text-align: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; background: var(--beige); border-radius: 32px; padding: 1.5rem 2rem; position: relative; }
+        .quote-block i.fa-quote-left { font-size: 2rem; color: var(--tierra); opacity: 0.4; position: absolute; left: 1.5rem; top: 1rem; }
+        .quote-author { margin-top: 1.2rem; font-size: 1rem; font-weight: 600; color: var(--tierra); }
+        section { padding: 80px 0; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+        .section-title:after { content: ''; display: block; width: 70px; height: 3px; background: var(--tierra); margin: 0.8rem auto 0; }
+        .bg-beige { background-color: var(--beige); }
+        .artists-grid, .art-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .artist-card, .art-card { background: var(--blanco); border-radius: 20px; overflow: hidden; box-shadow: var(--sombra-suave); transition: var(--transition); }
+        .artist-card:hover, .art-card:hover { transform: translateY(-5px); box-shadow: var(--sombra-media); }
+        .artist-img, .art-img { width: 100%; height: 260px; object-fit: cover; }
+        .art-info { padding: 1.2rem; }
+        .art-title { font-size: 1.3rem; font-weight: 700; }
+        .art-artist { color: #6b6b6b; font-size: 0.9rem; margin: 0.3rem 0; }
+        .art-price { font-weight: 700; color: var(--tierra); font-size: 1.2rem; }
+        .btn-buy { width: 100%; background-color: var(--negro); color: white; border: none; padding: 10px 0; border-radius: 40px; font-weight: 600; margin-top: 0.5rem; cursor: pointer; transition: var(--transition); }
+        .btn-buy:hover { background-color: var(--tierra); }
+        .filters { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+        .filter-btn { background: transparent; border: 1px solid #ddd; padding: 8px 22px; border-radius: 40px; cursor: pointer; }
+        .filter-btn.active, .filter-btn:hover { background-color: var(--tierra); color: white; border-color: var(--tierra); }
+        /* MODALES */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; width: 90%; max-width: 500px; border-radius: 28px; padding: 2rem; position: relative; max-height: 80vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 0.3rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 12px; }
+        .btn-primary { background: var(--tierra); color: white; border: none; padding: 10px; border-radius: 40px; width: 100%; font-weight: bold; cursor: pointer; }
+        .admin-panel { max-width: 900px; width: 90%; }
+        .order-item { border-bottom: 1px solid #eee; padding: 1rem 0; }
+        .product-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        footer { background-color: #0f0f0f; color: #e0e0e0; padding: 50px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .social-icons a { color: #ccc; font-size: 1.6rem; margin-right: 1rem; transition: var(--transition); }
+        .social-icons a:hover { color: var(--tierra); }
+        @media (max-width: 768px) { .nav-links { position: fixed; top: 80px; left: -100%; background: white; width: 80%; height: calc(100vh - 80px); flex-direction: column; padding: 2rem; transition: left 0.3s; z-index: 999; } .nav-links.active { left: 0; } .mobile-menu { display: block; } .hero-title { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="logo"><a href="#">Centro<span>Cultural</span>Santiago</a></div>
+        <button class="mobile-menu" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Inicio</a></li><li><a href="#artistas">Artistas</a></li><li><a href="#tienda">Tienda</a></li><li><a href="#sobre">Nosotros</a></li>
+            <li><a href="#testimonios">Testimonios</a></li>
+            <li><i class="fas fa-user user-icon" id="userIcon"></i></li>
+            <li><i class="fas fa-shield-alt admin-icon" id="adminIcon"></i></li>
+            <li class="cart-icon" id="cartIcon"><i class="fas fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section id="inicio" class="hero"><div class="container hero-grid"><div class="hero-content"><div class="hero-badge">Galería Global · Mérida</div><h1 class="hero-title">Arte sin fronteras<br>en el corazón de Mérida</h1><p class="hero-desc">Explora obras de artistas de todo el mundo.</p><a href="#tienda" class="btn">Explorar Colección</a><a href="#artistas" class="btn btn-outline" style="margin-left:1rem">Artistas</a></div><div class="hero-image"><img src="https://images.unsplash.com/photo-1536924940846-227afb31e2da?w=600&h=500&fit=crop" alt="galería"></div></div></section>
+    
+    <div class="quote-section"><div class="container"><div class="quote-block"><i class="fas fa-quote-left"></i><p>“El lenguaje de las artes plásticas es universal, aventurándome a decir que es cósmico. Las obras tienen en su totalidad la verdadera entidad de su creador...”</p><div class="quote-author">— Alfredo Teyer Macari</div></div></div></div>
+
+    <section id="artistas"><div class="container"><h2 class="section-title">Artistas de Todo el Mundo</h2><div class="artists-grid" id="artistsGrid"></div></div></section>
+    <section id="tienda" class="bg-beige"><div class="container"><h2 class="section-title">Obras Originales · Tienda Online</h2><div class="filters" id="filterButtons"></div><div class="art-grid" id="artGrid"></div></div></section>
+    <section id="testimonios"><div class="container"><h2 class="section-title">Voces del Arte</h2><div class="testimonials-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem"><div class="testimonial"><i class="fas fa-quote-left"></i><p>"Una galería que realmente abraza la diversidad cultural."</p><h4>— Valentina Rossi</h4></div><div class="testimonial"><i class="fas fa-quote-left"></i><p>"El Centro Cultural Santiago es un puente entre América Latina y el mundo."</p><h4>— Diego Morales</h4></div></div></div></section>
+    <section id="sobre" class="bg-beige"><div class="container"><h2 class="section-title">Nosotros</h2><div class="about-content" style="max-width:800px;margin:0 auto;text-align:center"><p>Somos un espacio que celebra el arte contemporáneo sin límites geográficos, en Mérida, Yucatán.</p><div style="background:rgba(156,74,46,0.08);padding:1rem;border-radius:24px;margin-top:1.5rem"><p><strong><i class="fas fa-map-marker-alt"></i> Dirección:</strong> Calle 60 #456 x 49, Centro, 97000 Mérida, Yucatán.</p><p><strong><i class="far fa-clock"></i> Horario:</strong> Lunes a Viernes 10:00 - 19:00, Sábados con cita previa.</p></div></div></div></section>
+</main>
+
+<footer><div class="container"><div class="footer-grid"><div class="footer-about"><div class="footer-logo">Centro<span>Cultural</span>Santiago</div><p>Arte global en Mérida.</p><div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div><div class="footer-contact"><h3>Contacto</h3><p><i class="fas fa-user"></i> Rodrigo Casillas Fragoso</p><p><i class="fas fa-phone"></i> +52 999 111 1875</p><p><i class="fas fa-envelope"></i> centro cultural santiagomid@gmail.com</p></div></div><div class="copyright"><p>&copy; 2025 Centro Cultural Santiago · Mérida</p></div></div></footer>
+
+<!-- MODALES -->
+<div id="loginModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeLoginModal">&times;</span><h2>Iniciar Sesión</h2><form id="loginForm"><div class="form-group"><label>Email</label><input type="email" id="loginEmail" required></div><div class="form-group"><label>Contraseña</label><input type="password" id="loginPassword" required></div><button type="submit" class="btn-primary">Ingresar</button></form><p style="margin-top:1rem">¿No tienes cuenta? <a href="#" id="showRegisterLink">Regístrate aquí</a></p></div></div>
+
+<div id="registerModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeRegisterModal">&times;</span><h2>Registro</h2><form id="registerForm"><div class="form-group"><label>Nombre completo</label><input type="text" id="regName" required></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div><div class="form-group"><label>Contraseña</label><input type="password" id="regPassword" required></div><button type="submit" class="btn-primary">Registrarse</button></form><p style="margin-top:1rem">¿Ya tienes cuenta? <a href="#" id="showLoginLink">Inicia sesión</a></p></div></div>
+
+<div id="userProfileModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeProfileModal">&times;</span><h2>Mi Cuenta</h2><div id="profileInfo"></div><h3>Mis Pedidos</h3><div id="userOrdersList"></div><button id="logoutBtn" class="btn-primary" style="background:#555">Cerrar sesión</button></div></div>
+
+<div id="adminModal" class="modal"><div class="modal-content admin-panel"><span class="close-modal" id="closeAdminModal">&times;</span><h2>Panel de Administración</h2><div id="adminLoginDiv"><form id="adminLoginForm"><div class="form-group"><label>Usuario Admin</label><input type="text" id="adminUser" required></div><div class="form-group"><label>Contraseña</label><input type="password" id="adminPass" required></div><button type="submit" class="btn-primary">Acceder</button></form></div><div id="adminPanelContent" style="display:none"><h3>Gestión de Obras</h3><button id="addProductBtn" class="btn" style="margin-bottom:1rem">+ Agregar Obra</button><div id="adminProductsList"></div><h3>Todos los Pedidos de Usuarios</h3><div id="allOrdersList"></div></div></div></div>
+
+<div id="cartModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeCartModal">&times;</span><h2>Carrito</h2><div id="cartItemsList"></div><div id="cartSummary"></div><hr><h3>Datos de envío</h3><form id="checkoutForm"><div class="form-group"><label>Nombre</label><input type="text" id="checkoutNombre" required></div><div class="form-group"><label>Email</label><input type="email" id="checkoutEmail" required></div><div class="form-group"><label>Dirección</label><textarea id="checkoutDireccion" required></textarea></div><div class="form-group"><label>Método de envío</label><select id="metodoEnvio"><option value="150">Estándar $150 MXN</option><option value="350">Express $350 MXN</option></select></div><h3>Pago</h3><div class="payment-methods"><label><input type="radio" name="pago" value="Tarjeta" checked> Tarjeta</label><label><input type="radio" name="pago" value="Transferencia"> Transferencia</label><label><input type="radio" name="pago" value="PayPal"> PayPal</label></div><button type="submit" class="btn-primary">Finalizar Compra</button></form><div id="mensajePedido"></div></div></div>
+
+<script>
+    // Datos iniciales de productos
+    let products = [
+        { id: "p1", name: "Abstracción Lírica", artist: "Alfredo Teyer Macari", price: 185000, category: "pintura", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=300&fit=crop" },
+        { id: "p2", name: "Cromatismo Andino", artist: "Manuel Lizama", price: 220000, category: "pintura", img: "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=400&h=300&fit=crop" },
+        { id: "p3", name: "Raíz de Acero", artist: "Julio Quintanilla", price: 350000, category: "escultura", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&h=300&fit=crop" },
+        { id: "p4", name: "Geometría Nativa", artist: "Jaime Cárdena Vega", price: 420000, category: "escultura", img: "https://images.unsplash.com/photo-1561430872-8d6b0f0d5e5b?w=400&h=300&fit=crop" },
+        { id: "p5", name: "Resonancias Urbanas", artist: "Manuel Ávila Serrano", price: 150000, category: "fotografia", img: "https://images.unsplash.com/photo-1554048612-b6a482bc67e4?w=400&h=300&fit=crop" },
+        { id: "p6", name: "Trama Ancestral", artist: "Leopoldo Ortegon", price: 280000, category: "fotografia", img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop" }
+    ];
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let currentUser = null;
+    let isAdminLogged = false;
+    let cart = [];
+
+    function saveUsers() { localStorage.setItem('users', JSON.stringify(users)); }
+    function saveCart() { if(currentUser) localStorage.setItem(`cart_${currentUser.email}`, JSON.stringify(cart)); else localStorage.setItem('guest_cart', JSON.stringify(cart)); updateCartCount(); }
+    function loadCart() { if(currentUser) cart = JSON.parse(localStorage.getItem(`cart_${currentUser.email}`)) || []; else cart = JSON.parse(localStorage.getItem('guest_cart')) || []; updateCartCount(); }
+    function updateCartCount() { document.getElementById('cartCount').innerText = cart.reduce((s,i)=>s+i.qty,0); }
+    function renderArtists() { let html = ''; const artistList = ["Alfredo Teyer Macari","Julio Quintanilla","Leopoldo Ortegon","Manuel Ávila Serrano","Manuel Lizama","Jaime Cárdena Vega"]; artistList.forEach(a=>{ html+=`<div class="artist-card"><img class="artist-img" src="https://randomuser.me/api/portraits/men/${Math.floor(Math.random()*50)}.jpg"><h3>${a}</h3><p class="artist-specialty">Arte Contemporáneo</p><p class="artist-country">🌎 Internacional</p></div>`; }); document.getElementById('artistsGrid').innerHTML = html; }
+    function renderProducts(filter="all") { let html = ''; products.filter(p=> filter==='all' || p.category===filter).forEach(p=>{ html+=`<div class="art-card" data-category="${p.category}" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-artist="${p.artist}"><img class="art-img" src="${p.img}"><div class="art-info"><h3 class="art-title">${p.name}</h3><p class="art-artist">${p.artist}</p><p class="art-price">$${p.price.toLocaleString()} MXN</p><button class="btn-buy">Añadir al carrito</button></div></div>`; }); document.getElementById('artGrid').innerHTML = html; attachBuyEvents(); }
+    function attachBuyEvents() { document.querySelectorAll('.btn-buy').forEach(btn=>{ btn.removeEventListener('click', addToCart); btn.addEventListener('click', addToCart); }); }
+    function addToCart(e) { const card = e.target.closest('.art-card'); const id = card.dataset.id, name = card.dataset.name, price = parseInt(card.dataset.price), artist = card.dataset.artist; const existing = cart.find(i=>i.id===id); if(existing) existing.qty++; else cart.push({id,name,price,artist,qty:1}); saveCart(); updateCartCount(); e.target.textContent='✓ Añadido'; setTimeout(()=>{ e.target.textContent='Añadir al carrito'; },1000); }
+    function renderFilters() { let btns = '<button class="filter-btn active" data-filter="all">Todas</button><button class="filter-btn" data-filter="pintura">Pintura</button><button class="filter-btn" data-filter="escultura">Escultura</button><button class="filter-btn" data-filter="fotografia">Fotografía</button>'; document.getElementById('filterButtons').innerHTML = btns; document.querySelectorAll('.filter-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderProducts(btn.dataset.filter); }); }); }
+    
+    // Auth modals
+    const loginModal = document.getElementById('loginModal'), registerModal = document.getElementById('registerModal'), profileModal = document.getElementById('userProfileModal'), adminModal = document.getElementById('adminModal'), cartModal = document.getElementById('cartModal');
+    document.getElementById('userIcon').onclick = () => { if(currentUser) showProfile(); else loginModal.classList.add('active'); };
+    document.getElementById('adminIcon').onclick = () => { adminModal.classList.add('active'); };
+    function closeModals() { loginModal.classList.remove('active'); registerModal.classList.remove('active'); profileModal.classList.remove('active'); adminModal.classList.remove('active'); cartModal.classList.remove('active'); }
+    document.querySelectorAll('.close-modal').forEach(el=>el.addEventListener('click',closeModals));
+    document.getElementById('showRegisterLink')?.addEventListener('click',(e)=>{ e.preventDefault(); loginModal.classList.remove('active'); registerModal.classList.add('active'); });
+    document.getElementById('showLoginLink')?.addEventListener('click',(e)=>{ e.preventDefault(); registerModal.classList.remove('active'); loginModal.classList.add('active'); });
+    document.getElementById('registerForm').addEventListener('submit',(e)=>{ e.preventDefault(); let name=document.getElementById('regName').value, email=document.getElementById('regEmail').value, pwd=document.getElementById('regPassword').value; if(users.find(u=>u.email===email)) alert('Email ya registrado'); else { users.push({name,email,password:pwd,orders:[]}); saveUsers(); alert('Registro exitoso, ahora inicia sesión'); registerModal.classList.remove('active'); loginModal.classList.add('active'); } });
+    document.getElementById('loginForm').addEventListener('submit',(e)=>{ e.preventDefault(); let email=document.getElementById('loginEmail').value, pwd=document.getElementById('loginPassword').value; let user=users.find(u=>u.email===email && u.password===pwd); if(user) { currentUser=user; localStorage.setItem('currentUser',JSON.stringify(user)); loadCart(); closeModals(); alert(`Bienvenido ${user.name}`); } else alert('Credenciales incorrectas'); });
+    function showProfile() { if(!currentUser) return; document.getElementById('profileInfo').innerHTML=`<p><strong>${currentUser.name}</strong><br>${currentUser.email}</p>`; let ordersHtml=currentUser.orders?.map(o=>`<div class="order-item">Pedido ${o.date} - Total $${o.total} MXN<br>Items: ${o.items.map(i=>`${i.name} x${i.qty}`).join(', ')}</div>`).join('')||'<p>Sin pedidos previos</p>'; document.getElementById('userOrdersList').innerHTML=ordersHtml; profileModal.classList.add('active'); }
+    document.getElementById('logoutBtn').addEventListener('click',()=>{ currentUser=null; localStorage.removeItem('currentUser'); cart=[]; saveCart(); updateCartCount(); closeModals(); alert('Sesión cerrada'); });
+    
+    // Admin login
+    document.getElementById('adminLoginForm').addEventListener('submit',(e)=>{ e.preventDefault(); let user=document.getElementById('adminUser').value, pass=document.getElementById('adminPass').value; if(user==='admin' && pass==='admin123') { isAdminLogged=true; document.getElementById('adminLoginDiv').style.display='none'; document.getElementById('adminPanelContent').style.display='block'; renderAdminProducts(); renderAllOrders(); } else alert('Credenciales admin incorrectas'); });
+    function renderAdminProducts() { let html=''; products.forEach((p,idx)=>{ html+=`<div class="product-admin"><span><strong>${p.name}</strong> - $${p.price} MXN - ${p.category}</span><div><button class="editPriceBtn" data-idx="${idx}">Editar precio</button> <button class="deleteProductBtn" data-idx="${idx}">Eliminar</button></div></div>`; }); document.getElementById('adminProductsList').innerHTML=html; document.querySelectorAll('.editPriceBtn').forEach(btn=>{ btn.addEventListener('click',()=>{ let newPrice=prompt('Nuevo precio en MXN'); if(newPrice && !isNaN(newPrice)) { products[btn.dataset.idx].price=parseInt(newPrice); renderProducts(); renderAdminProducts(); saveProductsToLocal(); } }); }); document.querySelectorAll('.deleteProductBtn').forEach(btn=>{ btn.addEventListener('click',()=>{ products.splice(btn.dataset.idx,1); renderProducts(); renderAdminProducts(); saveProductsToLocal(); }); }); }
+    document.getElementById('addProductBtn').addEventListener('click',()=>{ let name=prompt('Nombre de la obra'), artist=prompt('Artista'), price=parseInt(prompt('Precio MXN')), category=prompt('Categoría (pintura/escultura/fotografia)'), img='https://images.unsplash.com/photo-1536924940846-227afb31e2da?w=400&h=300&fit=crop'; if(name&&artist&&price&&category) { let newId='p'+Date.now(); products.push({id:newId,name,artist,price,category,img}); renderProducts(); renderAdminProducts(); saveProductsToLocal(); } });
+    function saveProductsToLocal() { localStorage.setItem('products', JSON.stringify(products)); }
+    function loadProducts() { let stored=localStorage.getItem('products'); if(stored) products=JSON.parse(stored); else saveProductsToLocal(); }
+    function renderAllOrders() { let allOrders=[]; users.forEach(u=>{ if(u.orders) u.orders.forEach(o=>{ allOrders.push({cliente:u.name,email:u.email,...o}); }); }); let html=allOrders.map(o=>`<div class="order-item"><strong>${o.cliente}</strong> (${o.email}) - ${o.date} - Total $${o.total} MXN<br>Envío: ${o.envio}<br>Productos: ${o.items.map(i=>`${i.name} x${i.qty}`).join(', ')}</div>`).join(''); if(!html) html='<p>No hay pedidos aún</p>'; document.getElementById('allOrdersList').innerHTML=html; }
+    
+    // Checkout
+    document.getElementById('checkoutForm').addEventListener('submit',(e)=>{ e.preventDefault(); if(cart.length===0){alert('Carrito vacío');return;} let nombre=document.getElementById('checkoutNombre').value, email=document.getElementById('checkoutEmail').value, direccion=document.getElementById('checkoutDireccion').value, envioSelect=document.getElementById('metodoEnvio'), envioCosto=parseInt(envioSelect.value), metodoPago=document.querySelector('input[name="pago"]:checked').value; let subtotal=cart.reduce((a,i)=>a+(i.price*i.qty),0), total=subtotal+envioCosto; let pedido={date:new Date().toLocaleString(), items:cart.map(i=>({name:i.name,artist:i.artist,qty:i.qty,precio:i.price})), total, envio:envioSelect.options[envioSelect.selectedIndex].text, pago:metodoPago, direccion}; if(currentUser){ let userIndex=users.findIndex(u=>u.email===currentUser.email); if(userIndex!==-1){ if(!users[userIndex].orders) users[userIndex].orders=[]; users[userIndex].orders.push(pedido); saveUsers(); currentUser=users[userIndex]; localStorage.setItem('currentUser',JSON.stringify(currentUser)); } } else { alert('Para compras recurrentes regístrate o inicia sesión. Pedido guardado como invitado.'); } cart=[]; saveCart(); updateCartCount(); document.getElementById('mensajePedido').innerHTML=`<div style="background:#d4edda;padding:1rem;border-radius:16px;">✅ Pedido realizado! Total: $${total.toLocaleString()} MXN</div>`; setTimeout(()=>{ cartModal.classList.remove('active'); document.getElementById('mensajePedido').innerHTML=''; },3000); if(isAdminLogged) renderAllOrders(); });
+    
+    // cart modal
+    document.getElementById('cartIcon').onclick = () => { updateCartModal(); cartModal.classList.add('active'); };
+    function updateCartModal() { let container=document.getElementById('cartItemsList'); if(cart.length===0){ container.innerHTML='<p>Carrito vacío</p>'; document.getElementById('cartSummary').innerHTML=''; return; } let html=''; cart.forEach((item,idx)=>{ html+=`<div class="cart-item"><div><strong>${item.name}</strong><br>${item.artist}<br>$${item.price.toLocaleString()} c/u</div><div><button class="qty-btn" data-idx="${idx}" data-delta="-1">-</button> ${item.qty} <button class="qty-btn" data-idx="${idx}" data-delta="1">+</button> <button class="remove-item" data-idx="${idx}"><i class="fas fa-trash"></i></button></div><div>Subtotal: $${(item.price*item.qty).toLocaleString()}</div></div>`; }); container.innerHTML=html; let subtotal=cart.reduce((a,i)=>a+(i.price*i.qty),0), envio=150; let total=subtotal+envio; document.getElementById('cartSummary').innerHTML=`<strong>Subtotal:</strong> $${subtotal.toLocaleString()} MXN<br><strong>Envío:</strong> $${envio} MXN<br><strong>Total:</strong> $${total.toLocaleString()} MXN`; document.querySelectorAll('.qty-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ let idx=btn.dataset.idx, delta=parseInt(btn.dataset.delta); if(cart[idx]){ let newQty=cart[idx].qty+delta; if(newQty<=0) cart.splice(idx,1); else cart[idx].qty=newQty; saveCart(); updateCartModal(); updateCartCount(); } }); }); document.querySelectorAll('.remove-item').forEach(btn=>{ btn.addEventListener('click',()=>{ let idx=btn.dataset.idx; cart.splice(idx,1); saveCart(); updateCartModal(); updateCartCount(); }); }); }
+    
+    function init() { loadProducts(); renderArtists(); renderProducts(); renderFilters(); loadCart(); let storedUser=localStorage.getItem('currentUser'); if(storedUser){ currentUser=JSON.parse(storedUser); loadCart(); } }
+    init();
+    // mobile menu
+    document.getElementById('mobileMenuBtn').onclick=()=>{ document.getElementById('navLinks').classList.toggle('active'); };
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{ anchor.addEventListener('click',function(e){ let hash=this.getAttribute('href'); if(hash==='#') return; let target=document.querySelector(hash); if(target){ e.preventDefault(); document.getElementById('navLinks').classList.remove('active'); window.scrollTo({top:target.offsetTop-70,behavior:'smooth'}); } }); });
+</script>
+</body>
+</html>
